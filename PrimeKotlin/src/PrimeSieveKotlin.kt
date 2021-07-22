@@ -16,21 +16,21 @@ private val MY_DICT = mapOf(10 to 1, 1000 to 168, 10000 to 1229,
     private var bitArray: BitSet = BitSet(0)
 
 
-    fun primeSieve(sizelimit: Int) {
-        // Upper limit of numbers, highest prime we'll consider
-        sieveSize = sizelimit
-        // since we filter out the evens, we only need half as many bits
-        val bitArrayLength = (sieveSize + 1) / 2
-        bitArray = BitSet(bitArrayLength)
-        bitArray.set(0, bitArrayLength, true)
+fun primeSieve(sizelimit: Int) {
+    // Upper limit of numbers, highest prime we'll consider
+    sieveSize = sizelimit
+    // since we filter out the evens, we only need half as many bits
+    val bitArrayLength = (sieveSize + 1) / 2
+    bitArray = BitSet(bitArrayLength)
+    bitArray.set(0, bitArrayLength, true)
     }
 
 
-    fun runSieve() {
-        var factor = 3
+fun runSieve() {
+    var factor = 3
 
-        // calculating prime numbers to the sieveSize limit(under 1000)
-        while (factor < sqrt(sieveSize.toDouble()).toInt()) {
+    // calculating prime numbers to the sieveSize limit(under 1000)
+    while (factor < sqrt(sieveSize.toDouble()).toInt()) {
             for (num in factor..sieveSize) {
                 if (getBit(num)) {
                     factor = num
@@ -51,25 +51,25 @@ private val MY_DICT = mapOf(10 to 1, 1000 to 168, 10000 to 1229,
     }
 
     // uses cardinality function to return number of true prime numbers
-    private fun countPrimes(): Int {
-        return bitArray.cardinality()
+private fun countPrimes(): Int {
+    return bitArray.cardinality()
     }
 
 
     //if the count of primes matches the map then the results are valid
-    private fun validateResults(): Boolean {
-        return if (MY_DICT.containsKey(sieveSize) && MY_DICT[sieveSize] == countPrimes()) true
-        else return false
+private fun validateResults(): Boolean {
+    return if (MY_DICT.containsKey(sieveSize) && MY_DICT[sieveSize] == countPrimes()) true
+    else return false
     }
 
     // if number is wholly divisible by 2 then its not prime and marked false
-    private fun getBit(index: Int): Boolean {
-        return if (index % 2 == 0) false
-        else bitArray[index / 2]
+private fun getBit(index: Int): Boolean {
+    return if (index % 2 == 0) false
+    else bitArray[index / 2]
     }
 
     // if number is even it gets caught and marked false
-    private fun clearBit(index: Int) {
+private fun clearBit(index: Int) {
         if (index % 2 == 0) {
             println("You are setting even bits, which is sub-optimal")
         }
@@ -77,7 +77,7 @@ private val MY_DICT = mapOf(10 to 1, 1000 to 168, 10000 to 1229,
     }
 
 
-    fun printResults(showResults: Boolean, duration: Long, passes: Long) {
+fun printResults(showResults: Boolean, duration: Long, passes: Long) {
         if (showResults) println("2, ")
         var count = 1
 
@@ -114,4 +114,3 @@ fun main(){
     val totalTime = (currentTimeMillis() - tStart)
     printResults(true, TimeUnit.MILLISECONDS.toSeconds(totalTime), passes)
 }
-
